@@ -33,7 +33,7 @@ embedding_model_dict = {
 # supported LLM models
 llm_model_dict = {
     # "llama-2-7b": "LinkSoul/Chinese-Llama-2-7b-4bit",
-    "Qwen-7B-Chat-Int4": "Qwen/Qwen-7B-Chat-Int4",
+    "qwen-7B-Chat-Int4": "Qwen/Qwen-7B-Chat-Int4",
     # "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
     # "chatglm-6b-int4-qe": "THUDM/chatglm-6b-int4-qe",
     # "chatglm-2-6b": "THUDM/chatglm2-6b",
