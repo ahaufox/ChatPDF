@@ -57,7 +57,7 @@ class ChatPDF:
             int8: bool = False,
             int4: bool = False,
     ):
-        default_device = torch.device('gpu')
+        default_device = torch.device('cuda')
         if torch.cuda.is_available():
             default_device = torch.device(0)
         elif torch.backends.mps.is_available():
