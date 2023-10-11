@@ -100,11 +100,13 @@ class ChatPDF:
         )
         if self.device == torch.device('cpu'):
             model.float()
-        # if gen_model_type in ['qwen', 'chatglm']:
-        #     if int4:
-        #         model = model.quantize(4).cuda()
-        #     elif int8:
-        #         model = model.quantize(8).cuda()
+        if gen_model_type in ['qwen', ]:
+            model = model.cuda()
+        if gen_model_type in ['chatglm']:
+            if int4:
+                model = model.quantize(4).cuda()
+            elif int8:
+                model = model.quantize(8).cuda()
         try:
             model.generation_config = GenerationConfig.from_pretrained(gen_model_name_or_path, trust_remote_code=True)
         except Exception as e:
