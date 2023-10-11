@@ -50,7 +50,7 @@ class ChatPDF:
     def __init__(
             self,
             sim_model_name_or_path: str = "shibing624/text2vec-base-chinese",
-            gen_model_type: str = "qwen",
+            gen_model_type: str = "Qwen/Qwen-7B-Chat-Int4",
             gen_model_name_or_path: str = "Qwen/Qwen-7B-Chat-Int4",
             lora_model_name_or_path: str = None,
             device: str = None,
@@ -275,7 +275,7 @@ if __name__ == "__main__":
     parser.add_argument("--gen_model_type", type=str, default="qwen")
     parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat-Int4")
     parser.add_argument("--lora_model", type=str, default=None)
-    parser.add_argument("--device", type=str, default=None)
+    parser.add_argument("--device", type=str, default='cuda')
     parser.add_argument("--int4", action='store_true', help="use int4 quantization")
     parser.add_argument("--int8", action='store_true', help="use int8 quantization")
     args = parser.parse_args()

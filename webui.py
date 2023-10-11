@@ -23,11 +23,11 @@ MAX_INPUT_LEN = 2048
 
 embedding_model_dict = {
     "text2vec-base": "shibing624/text2vec-base-chinese",
-    "text2vec-multilingual": "shibing624/text2vec-base-multilingual",
-    "text2vec-large": "GanymedeNil/text2vec-large-chinese",
-    "sentence-transformers": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
-    "ernie-tiny": "nghuyong/ernie-3.0-nano-zh",
-    "ernie-base": "nghuyong/ernie-3.0-base-zh",
+    # "text2vec-multilingual": "shibing624/text2vec-base-multilingual",
+    # "text2vec-large": "GanymedeNil/text2vec-large-chinese",
+    # "sentence-transformers": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    # "ernie-tiny": "nghuyong/ernie-3.0-nano-zh",
+    # "ernie-base": "nghuyong/ernie-3.0-base-zh",
 }
 
 # supported LLM models
@@ -152,7 +152,7 @@ def get_answer(query, index_path, history, topn=VECTOR_SEARCH_TOP_K, max_input_s
         model.history[-1][1] = response
         response = parse_text(response)
         history = history + [[query, response]]
-        logger.debug(f"query: {query}, response: {response}")
+        logger.debug(f"我: {query}, 小黑: {response}")
     return history, ""
 
 
@@ -254,7 +254,7 @@ with gr.Blocks(css=block_css) as demo:
         with gr.Column(scale=2):
             chatbot = gr.Chatbot([[None, init_message], [None, None]],
                                  elem_id="chat-box",
-                                 show_label=False).style(height=700)
+                                 show_label=False)
             query = gr.Textbox(show_label=False,
                                placeholder="请输入提问内容，按回车进行提交",
                                ).style(container=False)
