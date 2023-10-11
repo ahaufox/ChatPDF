@@ -45,13 +45,15 @@ PROMPT_TEMPLATE = """基于以下已知信息，简洁和专业的来回答用�
 {query_str}
 """
 
+DEFAULT_GEN_TYPE='qwen7b4'
+DEFAULT_GEN='Qwen/Qwen-7B-Chat-Int4'
 
 class ChatPDF:
     def __init__(
             self,
             sim_model_name_or_path: str = "shibing624/text2vec-base-chinese",
-            gen_model_type: str = "qwen",
-            gen_model_name_or_path: str = "Qwen/Qwen-7B-Chat",
+            gen_model_type: str = DEFAULT_GEN_TYPE,
+            gen_model_name_or_path: str = DEFAULT_GEN,
             lora_model_name_or_path: str = None,
             device: str = None,
             int8: bool = False,
@@ -273,8 +275,8 @@ class ChatPDF:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
-    parser.add_argument("--gen_model_type", type=str, default="qwen")
-    parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat")
+    parser.add_argument("--gen_model_type", type=str, default=DEFAULT_GEN_TYPE)
+    parser.add_argument("--gen_model", type=str, default=DEFAULT_GEN)
     parser.add_argument("--lora_model", type=str, default=None)
     parser.add_argument("--device", type=str, default='cuda')
     parser.add_argument("--int4", action='store_true', help="use int4 quantization")

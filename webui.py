@@ -20,6 +20,9 @@ CONTENT_DIR = os.path.join(pwd_path, "content")
 logger.info(f"CONTENT_DIR: {CONTENT_DIR}")
 VECTOR_SEARCH_TOP_K = 3
 MAX_INPUT_LEN = 2048
+DEFAULT_GEN_TYPE='qwen7b4'
+DEFAULT_GEN='Qwen/Qwen-7B-Chat-Int4'
+
 
 embedding_model_dict = {
     "text2vec-base": "shibing624/text2vec-base-chinese",
@@ -33,8 +36,8 @@ embedding_model_dict = {
 # supported LLM models
 llm_model_dict = {
     # "llama-2-7b": "LinkSoul/Chinese-Llama-2-7b-4bit",
-    "qwen-7B-Chat": "Qwen/Qwen-7B-Chat",
-    "qwen-7B-Chat-int4": "Qwen/Qwen-7B-Chat-Int4",
+    "qwen7b": "Qwen/Qwen-7B-Chat",
+    "qwen7b4": "Qwen/Qwen-7B-Chat-Int4",
     # "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
     # "chatglm-6b-int4-qe": "THUDM/chatglm-6b-int4-qe",
     # "chatglm-2-6b": "THUDM/chatglm2-6b",
@@ -45,13 +48,15 @@ llm_model_dict = {
     # "llama-13b": "shibing624/chinese-alpaca-plus-13b-hf",
 }
 
+
+
 llm_model_dict_list = list(llm_model_dict.keys())
 embedding_model_dict_list = list(embedding_model_dict.keys())
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
-parser.add_argument("--gen_model_type", type=str, default="qwen")
-parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat")
+parser.add_argument("--gen_model_type", type=str, default=DEFAULT_GEN_TYPE)
+parser.add_argument("--gen_model", type=str, default=DEFAULT_GEN)
 parser.add_argument("--lora_model", type=str, default=None)
 parser.add_argument("--device", type=str, default=None)
 parser.add_argument("--int4", action='store_false', help="use int4 quantization")
@@ -176,7 +181,7 @@ def reinit_model(llm_model, embedding_model, history):
                 "shibing624/text2vec-base-chinese"
             ),
             gen_model_type=llm_model.split('-')[0],
-            gen_model_name_or_path=llm_model_dict.get(llm_model, "Qwen/Qwen-7B-Chat"),
+            gen_model_name_or_path=llm_model_dict.get(llm_model),
             lora_model_name_or_path=None,
         )
 
@@ -264,7 +269,7 @@ with gr.Blocks(css=block_css) as demo:
             clear_btn = gr.Button('🔄Clear!', elem_id='clear').style(scale=1)
         with gr.Column(scale=1):
             llm_model = gr.Radio(llm_model_dict_list,
-                                 label="LLM 模型",
+                                 label="模型",
                                  value=list(llm_model_dict.keys())[0],
                                  interactive=True)
             embedding_model = gr.Radio(embedding_model_dict_list,
