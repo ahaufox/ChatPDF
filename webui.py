@@ -33,7 +33,8 @@ embedding_model_dict = {
 # supported LLM models
 llm_model_dict = {
     # "llama-2-7b": "LinkSoul/Chinese-Llama-2-7b-4bit",
-    "qwen-7B-Chat-Int4": "Qwen/Qwen-7B-Chat-Int4",
+    "qwen-7B-Chat": "Qwen/Qwen-7B-Chat",
+    "qwen-7B-Chat-int4": "Qwen/Qwen-7B-Chat-Int4",
     # "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
     # "chatglm-6b-int4-qe": "THUDM/chatglm-6b-int4-qe",
     # "chatglm-2-6b": "THUDM/chatglm2-6b",
@@ -50,7 +51,7 @@ embedding_model_dict_list = list(embedding_model_dict.keys())
 parser = argparse.ArgumentParser()
 parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
 parser.add_argument("--gen_model_type", type=str, default="qwen")
-parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat-Int4")
+parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat")
 parser.add_argument("--lora_model", type=str, default=None)
 parser.add_argument("--device", type=str, default=None)
 parser.add_argument("--int4", action='store_false', help="use int4 quantization")
@@ -175,7 +176,7 @@ def reinit_model(llm_model, embedding_model, history):
                 "shibing624/text2vec-base-chinese"
             ),
             gen_model_type=llm_model.split('-')[0],
-            gen_model_name_or_path=llm_model_dict.get(llm_model, "Qwen/Qwen-7B-Chat-Int4"),
+            gen_model_name_or_path=llm_model_dict.get(llm_model, "Qwen/Qwen-7B-Chat"),
             lora_model_name_or_path=None,
         )
 
@@ -244,7 +245,7 @@ block_css = """.importantButton {
 
 webui_title = """
 # 🎉ChatPDF WebUI🎉
-Link in: [https://github.com/shibing624/ChatPDF](https://github.com/shibing624/ChatPDF)  PS: 2核CPU 16G内存机器，约2min一条😭
+ PS: 1080Ti 11G显存机器，约1min一条😭
 """
 
 init_message = """欢迎使用 ChatPDF Web UI，可以直接提问或上传文件后提问 """
