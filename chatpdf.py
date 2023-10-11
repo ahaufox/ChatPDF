@@ -96,6 +96,7 @@ class ChatPDF:
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
             device_map=device_map,
+            disable_exllama=True,
             trust_remote_code=True,
         )
         if self.device == torch.device('cpu'):
