@@ -101,7 +101,7 @@ class ChatPDF:
         if self.device == torch.device('cpu'):
             model.float()
         if gen_model_type in ['qwen', ]:
-            model = model.cuda()
+            pass
         if gen_model_type in ['chatglm']:
             if int4:
                 model = model.quantize(4).cuda()
@@ -125,12 +125,12 @@ class ChatPDF:
     def stream_generate_answer(
             self,
             prompt,
-            max_new_tokens=512,
+            max_new_tokens=768,
             temperature=0.7,
             repetition_penalty=1.0,
             context_len=2048
     ):
-        streamer = TextIteratorStreamer(self.tokenizer, timeout=60.0, skip_prompt=True, skip_special_tokens=True)
+        streamer = TextIteratorStreamer(self.tokenizer, timeout=120.0, skip_prompt=True, skip_special_tokens=True)
         input_ids = self.tokenizer(prompt).input_ids
         max_src_len = context_len - max_new_tokens - 8
         input_ids = input_ids[-max_src_len:]
@@ -279,18 +279,18 @@ if __name__ == "__main__":
     parser.add_argument("--int4", action='store_true', help="use int4 quantization")
     parser.add_argument("--int8", action='store_true', help="use int8 quantization")
     args = parser.parse_args()
-    print(args)
+    # print(args)
     m = ChatPDF(
         sim_model_name_or_path=args.sim_model,
         gen_model_type=args.gen_model_type,
         gen_model_name_or_path=args.gen_model,
         lora_model_name_or_path=args.lora_model,
         device=args.device,
-        int4=args.int4,
-        int8=args.int8
+        # int4=args.int4,
+        # int8=args.int8
     )
     m.load_doc_files(doc_files='sample.pdf')
-    m.predict('自然语言中的非平行迁移是指什么？', do_print=True)
+    # m.predict('自然语言中的非平行迁移是指什么？', do_print=True)
     while True:
         query = input("> ")
         if query == 'exit':

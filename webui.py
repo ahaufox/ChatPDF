@@ -56,7 +56,7 @@ parser.add_argument("--device", type=str, default=None)
 parser.add_argument("--int4", action='store_false', help="use int4 quantization")
 parser.add_argument("--int8", action='store_true', help="use int8 quantization")
 args = parser.parse_args()
-print(args)
+# print(args)
 
 model = ChatPDF(
     sim_model_name_or_path=args.sim_model,
@@ -142,7 +142,7 @@ def get_answer(query, index_path, history, topn=VECTOR_SEARCH_TOP_K, max_input_s
         instruction = """[INST] <<SYS>>\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
 
                     If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.\n<</SYS>>\n\n{} [/INST]"""
-        if args.gen_model_type == "llama":
+        if args.gen_model_type == "qwen":
             query = instruction.format(query)
         model.history.append([query, ''])
         response = ""
@@ -258,7 +258,7 @@ with gr.Blocks(css=block_css) as demo:
             query = gr.Textbox(show_label=False,
                                placeholder="请输入提问内容，按回车进行提交",
                                ).style(container=False)
-            clear_btn = gr.Button('🔄Clear!', elem_id='clear').style(full_width=True)
+            clear_btn = gr.Button('🔄Clear!', elem_id='clear').style(scale=1)
         with gr.Column(scale=1):
             llm_model = gr.Radio(llm_model_dict_list,
                                  label="LLM 模型",
