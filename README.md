@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES=0 python chatpdf.py --gen_model_type baichaun --gen_model b
 #### 启动Web服务
 
 ```shell
-CUDA_VISIBLE_DEVICES=0 python webui.py --gen_model_type llama --gen_model LinkSoul/Chinese-Llama-2-7b-4bit 
+CUDA_VISIBLE_DEVICES=0 python webui.py --gen_model_type llama --gen_model Qwen/Qwen-7B-Chat-Int4 
 ```
 
 如果一切顺利，现在，你应该已经可以在浏览器地址栏中输入 http://localhost:7860 查看并使用 ChatPDF 了。

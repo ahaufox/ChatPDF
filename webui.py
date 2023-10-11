@@ -32,15 +32,16 @@ embedding_model_dict = {
 
 # supported LLM models
 llm_model_dict = {
-    "llama-2-7b": "LinkSoul/Chinese-Llama-2-7b-4bit",
-    "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
-    "chatglm-6b-int4-qe": "THUDM/chatglm-6b-int4-qe",
-    "chatglm-2-6b": "THUDM/chatglm2-6b",
-    "chatglm-2-6b-int4": "THUDM/chatglm2-6b-int4",
-    "chatglm-6b-int4": "THUDM/chatglm-6b-int4",
-    "chatglm-6b": "THUDM/chatglm-6b",
-    "llama-7b": "shibing624/chinese-alpaca-plus-7b-hf",
-    "llama-13b": "shibing624/chinese-alpaca-plus-13b-hf",
+    # "llama-2-7b": "LinkSoul/Chinese-Llama-2-7b-4bit",
+    "Qwen-7B-Chat-Int4": "Qwen/Qwen-7B-Chat-Int4",
+    # "baichuan-13b-chat": "baichuan-inc/Baichuan-13B-Chat",
+    # "chatglm-6b-int4-qe": "THUDM/chatglm-6b-int4-qe",
+    # "chatglm-2-6b": "THUDM/chatglm2-6b",
+    # "chatglm-2-6b-int4": "THUDM/chatglm2-6b-int4",
+    # "chatglm-6b-int4": "THUDM/chatglm-6b-int4",
+    # "chatglm-6b": "THUDM/chatglm-6b",
+    # "llama-7b": "shibing624/chinese-alpaca-plus-7b-hf",
+    # "llama-13b": "shibing624/chinese-alpaca-plus-13b-hf",
 }
 
 llm_model_dict_list = list(llm_model_dict.keys())
@@ -49,7 +50,7 @@ embedding_model_dict_list = list(embedding_model_dict.keys())
 parser = argparse.ArgumentParser()
 parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
 parser.add_argument("--gen_model_type", type=str, default="llama")
-parser.add_argument("--gen_model", type=str, default="LinkSoul/Chinese-Llama-2-7b-4bit")
+parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat-Int4")
 parser.add_argument("--lora_model", type=str, default=None)
 parser.add_argument("--device", type=str, default=None)
 parser.add_argument("--int4", action='store_false', help="use int4 quantization")

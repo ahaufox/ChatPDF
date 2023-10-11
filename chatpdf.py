@@ -27,7 +27,7 @@ MODEL_CLASSES = {
     "bloom": (BloomForCausalLM, BloomTokenizerFast),
     "chatglm": (AutoModel, AutoTokenizer),
     "llama": (LlamaForCausalLM, LlamaTokenizer),
-    "baichuan": (AutoModelForCausalLM, AutoTokenizer),
+    "qwen": (AutoModelForCausalLM, AutoTokenizer),
     "auto": (AutoModelForCausalLM, AutoTokenizer),
 }
 
@@ -50,8 +50,8 @@ class ChatPDF:
     def __init__(
             self,
             sim_model_name_or_path: str = "shibing624/text2vec-base-chinese",
-            gen_model_type: str = "baichuan",
-            gen_model_name_or_path: str = "baichuan-inc/Baichuan-13B-Chat",
+            gen_model_type: str = "qwen",
+            gen_model_name_or_path: str = "Qwen/Qwen-7B-Chat-Int4",
             lora_model_name_or_path: str = None,
             device: str = None,
             int8: bool = False,
@@ -91,8 +91,8 @@ class ChatPDF:
         tokenizer = tokenizer_class.from_pretrained(gen_model_name_or_path, trust_remote_code=True)
         model = model_class.from_pretrained(
             gen_model_name_or_path,
-            load_in_8bit=int8 if gen_model_type not in ['baichuan', 'chatglm'] else False,
-            load_in_4bit=int4 if gen_model_type not in ['baichuan', 'chatglm'] else False,
+            load_in_8bit=int8 if gen_model_type not in ['qwen', 'chatglm'] else False,
+            load_in_4bit=int4 if gen_model_type not in ['qwen', 'chatglm'] else False,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
             device_map=device_map,
@@ -100,7 +100,7 @@ class ChatPDF:
         )
         if self.device == torch.device('cpu'):
             model.float()
-        if gen_model_type in ['baichuan', 'chatglm']:
+        if gen_model_type in ['qwen', 'chatglm']:
             if int4:
                 model = model.quantize(4).cuda()
             elif int8:
@@ -270,8 +270,8 @@ class ChatPDF:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
-    parser.add_argument("--gen_model_type", type=str, default="baichuan")
-    parser.add_argument("--gen_model", type=str, default="baichuan-inc/Baichuan-13B-Chat")
+    parser.add_argument("--gen_model_type", type=str, default="qwen")
+    parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat-Int4")
     parser.add_argument("--lora_model", type=str, default=None)
     parser.add_argument("--device", type=str, default=None)
     parser.add_argument("--int4", action='store_true', help="use int4 quantization")
