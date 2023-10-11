@@ -84,7 +84,7 @@ class ChatPDF:
     ):
         """Init generate model."""
         if int8 or int4:
-            device_map = None
+            device_map = 'cuda'
         else:
             device_map = "auto"
         model_class, tokenizer_class = MODEL_CLASSES[gen_model_type]
