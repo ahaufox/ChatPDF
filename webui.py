@@ -149,7 +149,7 @@ def get_answer(query, index_path, history, topn=VECTOR_SEARCH_TOP_K, max_input_s
          你的回答不应包括任何有害、不道德、种族主义、性别歧视、有毒、危险或非法的内容。请确保你的回应是社会公正和积极的。如果一个问题没有任何意义，或者事实上不连贯，解释原因，而不是回答不正确的问题。
          如果你不知道问题的答案，请不要分享虚假信息.\n<</SYS>>\n{} [/INST]"""
         # if args.gen_model_type != "qwen":
-        if 'qwen'  in args.gen_mode_type:
+        if 'qwen'  in args.gen_model_type:
             pass
         else:
             query = instruction.format(query)
