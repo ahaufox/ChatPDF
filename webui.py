@@ -145,13 +145,15 @@ def get_answer(query, index_path, history, topn=VECTOR_SEARCH_TOP_K, max_input_s
         history = history + [[query, response]]
     else:
         # 未加载文件，仅返回生成模型结果
-        instruction = """[INST] <<SYS>>\nYou are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
-
-                    If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.\n<</SYS>>\n\n{} [/INST]"""
-        if args.gen_model_type != "qwen":
-            query = instruction.format(query)
-        else:
+        instruction = """[INST] <<SYS>>\n你是一个乐于助人、尊重他人、诚实的助手。在安全的情况下，始终尽可能提供帮助。
+         你的回答不应包括任何有害、不道德、种族主义、性别歧视、有毒、危险或非法的内容。请确保你的回应是社会公正和积极的。如果一个问题没有任何意义，或者事实上不连贯，解释原因，而不是回答不正确的问题。
+         如果你不知道问题的答案，请不要分享虚假信息.\n<</SYS>>\n{} [/INST]"""
+        # if args.gen_model_type != "qwen":
+        if 'qwen'  in args.gen_mode_type:
             pass
+        else:
+            query = instruction.format(query)
+        logger.debug(f"我: {query} ")
         model.history.append([query, ''])
         response = ""
         for new_text in model.stream_generate_answer(query, context_len=max_input_size):
@@ -160,7 +162,7 @@ def get_answer(query, index_path, history, topn=VECTOR_SEARCH_TOP_K, max_input_s
         model.history[-1][1] = response
         response = parse_text(response)
         history = history + [[query, response]]
-        logger.debug(f"我: {query}, 小黑: {response}")
+        logger.debug(f"小黑: {response}")
     return history, ""
 
 
