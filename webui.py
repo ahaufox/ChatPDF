@@ -173,7 +173,7 @@ def reinit_model(llm_model, embedding_model, history):
                 "shibing624/text2vec-base-chinese"
             ),
             gen_model_type=llm_model.split('-')[0],
-            gen_model_name_or_path=llm_model_dict.get(llm_model, "baichuan-inc/Baichuan-13B-Chat"),
+            gen_model_name_or_path=llm_model_dict.get(llm_model, "Qwen/Qwen-7B-Chat-Int4"),
             lora_model_name_or_path=None,
         )
 
