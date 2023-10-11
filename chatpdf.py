@@ -27,7 +27,8 @@ MODEL_CLASSES = {
     "bloom": (BloomForCausalLM, BloomTokenizerFast),
     "chatglm": (AutoModel, AutoTokenizer),
     "llama": (AutoModelForCausalLM, AutoTokenizer),
-    "qwen": (AutoModelForCausalLM, AutoTokenizer),
+    "qwen7b": (AutoModelForCausalLM, AutoTokenizer),
+    "qwen7b4": (AutoModelForCausalLM, AutoTokenizer),
     "auto": (AutoModelForCausalLM, AutoTokenizer),
 }
 
@@ -45,8 +46,9 @@ PROMPT_TEMPLATE = """基于以下已知信息，简洁和专业的来回答用�
 {query_str}
 """
 
-DEFAULT_GEN_TYPE='qwen7b4'
-DEFAULT_GEN='Qwen/Qwen-7B-Chat-Int4'
+DEFAULT_GEN_TYPE = 'qwen7b4'
+DEFAULT_GEN = 'Qwen/Qwen-7B-Chat-Int4'
+
 
 class ChatPDF:
     def __init__(
