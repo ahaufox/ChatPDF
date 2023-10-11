@@ -49,7 +49,7 @@ embedding_model_dict_list = list(embedding_model_dict.keys())
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--sim_model", type=str, default="shibing624/text2vec-base-chinese")
-parser.add_argument("--gen_model_type", type=str, default="llama")
+parser.add_argument("--gen_model_type", type=str, default="qwen")
 parser.add_argument("--gen_model", type=str, default="Qwen/Qwen-7B-Chat-Int4")
 parser.add_argument("--lora_model", type=str, default=None)
 parser.add_argument("--device", type=str, default=None)
