@@ -26,7 +26,7 @@ from transformers import (
 MODEL_CLASSES = {
     "bloom": (BloomForCausalLM, BloomTokenizerFast),
     "chatglm": (AutoModel, AutoTokenizer),
-    "llama": (LlamaForCausalLM, LlamaTokenizer),
+    "llama": (AutoModelForCausalLM, AutoTokenizer),
     "qwen": (AutoModelForCausalLM, AutoTokenizer),
     "auto": (AutoModelForCausalLM, AutoTokenizer),
 }
@@ -57,7 +57,7 @@ class ChatPDF:
             int8: bool = False,
             int4: bool = False,
     ):
-        default_device = torch.device('cpu')
+        default_device = torch.device('gpu')
         if torch.cuda.is_available():
             default_device = torch.device(0)
         elif torch.backends.mps.is_available():
@@ -91,7 +91,7 @@ class ChatPDF:
         tokenizer = tokenizer_class.from_pretrained(gen_model_name_or_path, trust_remote_code=True)
         model = model_class.from_pretrained(
             gen_model_name_or_path,
-            load_in_8bit=int8 if gen_model_type not in ['qwen', 'chatglm'] else False,
+            # load_in_8bit=int8 if gen_model_type not in ['qwen', 'chatglm'] else False,
             load_in_4bit=int4 if gen_model_type not in ['qwen', 'chatglm'] else False,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
