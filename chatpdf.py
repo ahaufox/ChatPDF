@@ -96,7 +96,7 @@ class ChatPDF:
         model = model_class.from_pretrained(
             gen_model_name_or_path,
             # load_in_8bit=int8 if gen_model_type not in ['qwen', 'chatglm'] else False,
-            load_in_4bit=int4 if gen_model_type not in ['qwen', 'chatglm'] else False,
+            load_in_4bit=int4 if gen_model_type not in ['qwen7b4', 'chatglm'] else False,
             torch_dtype=torch.float16,
             low_cpu_mem_usage=True,
             device_map=device_map,
